@@ -1,0 +1,7 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd"><suite name="SwaggerPetStore" parallel="none">
+    <parameter name="env" value="qa" />    <test name="Java">
+    <parameter name="platformName" value="Java" />
+    <classes>
+        <class name="apiClasses.PetTest"/>
+    </classes>
+</test></suite>
