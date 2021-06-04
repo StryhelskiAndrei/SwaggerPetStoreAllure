@@ -49,6 +49,6 @@ public class PetTest {
 
         System.out.println(pet.name);
         System.out.println(pet.status);
-        Assert.assertEquals(pet.name, "Chupakabra");
+        Assert.assertEquals(pet.name, "Chupakabraa");
     }
 }
