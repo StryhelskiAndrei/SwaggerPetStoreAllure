@@ -5,12 +5,12 @@ pipeline {
     }
 
     triggers {
-        cron('H/2 * * * *') //regular builds
+        cron('H 1 * * *') //regular builds
     }
 
     stages {
 
-        stage('Unit & Integration Tests') {
+        stage('Tests') {
             steps {
                 script {
 
@@ -19,7 +19,7 @@ pipeline {
                 }
             }
         }
-        stage('allure reports') {
+        stage('Allure reports') {
                     steps {
                         script {
                             allure([
