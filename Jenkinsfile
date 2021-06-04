@@ -5,7 +5,7 @@ pipeline {
     }
 
     triggers {
-        cron('H 0-24/1 * * *') //regular builds
+        cron('H 0-23/1 * * *') //regular builds
     }
 
     stages {
