@@ -73,21 +73,21 @@ public class PetTest extends PetStoreTest {
         Assert.assertNotNull(response.body());
     }
 
-    @Test
-    public void getID() throws IOException {
-        final int testPetId = 55555;
-
-        Response response = getPetById(testPetId);
-        ResponseBody responseBody = response.body();
-        Assert.assertEquals(response.code(), SUCCESS);
-        Assert.assertNotNull(responseBody);
-
-        Pet pet = Pet.fromJsonString(responseBody.string());
-        System.out.println(pet);
-        Assert.assertNotNull(pet);
-        Assert.assertNotNull(pet.name);
-        System.out.println(pet.name);
-    }
+//    @Test
+//    public void getID() throws IOException {
+//        final int testPetId = 55555;
+//
+//        Response response = getPetById(testPetId);
+//        ResponseBody responseBody = response.body();
+//        Assert.assertEquals(response.code(), SUCCESS);
+//        Assert.assertNotNull(responseBody);
+//
+//        Pet pet = Pet.fromJsonString(responseBody.string());
+//        System.out.println(pet);
+//        Assert.assertNotNull(pet);
+//        Assert.assertNotNull(pet.name);
+//        System.out.println(pet.name);
+//    }
 
     @Test
     public void updatePetIdPost() throws IOException {
