@@ -45,9 +45,7 @@ public class PetTest extends PetStoreTest {
     }
 
 
-    @Test(
-            groups = "Smoke test"
-    )
+    @Test
     public void updatingPetPut() throws IOException {
         Pet pet = new Pet(2, "Kitty", "available");
         String jsnObj = gson.toJson(pet);
