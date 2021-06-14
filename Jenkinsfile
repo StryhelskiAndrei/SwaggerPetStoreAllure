@@ -23,7 +23,7 @@ pipeline {
             steps {
                 script {
 
-                        sh './gradlew clean test --no-daemon' //run a gradle task
+                        sh $CLEAN_TEST //run a gradle task
 
                 }
             }
