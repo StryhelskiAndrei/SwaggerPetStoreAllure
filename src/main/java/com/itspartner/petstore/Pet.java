@@ -17,6 +17,14 @@ public class Pet {
 
     public String status;
 
+    public  Pet(int id, String name, String status) {
+        this.id = id;
+        this.name = name;
+        this.status = status;
+    }
+
+    public Pet(){}
+
     public static Pet fromJsonString(String responseBody) {
         Gson gson = new Gson();
         Pet pet = new Pet();
