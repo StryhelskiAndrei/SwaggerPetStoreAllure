@@ -29,7 +29,7 @@ public class PetTest extends PetStoreTest {
 
     @Test
     public void postAddPet() throws IOException {
-        Pet pet = new Pet(5555, "Chupakabra", "available");
+        Pet pet = new Pet(5555, "Chupakabraa", "available");
 
         String jsnObj = gson.toJson(pet);
 
@@ -41,7 +41,7 @@ public class PetTest extends PetStoreTest {
 
         ResponseBody responseBody = client.newCall(request).execute().body();
         pet = gson.fromJson(responseBody.string(), Pet.class);
-        Assert.assertEquals(pet.name, "Chupakabra");
+        Assert.assertEquals(pet.name, "Chupakabraa");
     }
 
 
