@@ -3,9 +3,9 @@ pipeline {
     agent {
         label 'master' //The id of the slave/agent where the build should be executed, if it doesn't matter use "agent any" instead.
     }
-    parameters {
-        string(name: 'TEST', defaultValue: './gradlew clean test --no-daemon', description: 'What should I say?')
-      }
+//     parameters {
+//         string(name: 'TEST', defaultValue: './gradlew clean test --no-daemon', description: 'What should I say?')
+//       }
 
     triggers {
         cron('H 0-23/1 * * *') //regular builds
@@ -26,8 +26,8 @@ pipeline {
             steps {
                 script {
 
-                        //sh './gradlew clean test --no-daemon' //run a gradle task
-                        sh $TEST
+                        sh './gradlew clean test --no-daemon' //run a gradle task
+                        //sh $TEST
 
                 }
             }
