@@ -13,14 +13,14 @@ public class PetStoreTest {
 
 
 
-    public Response getPetById(int testPetId) throws IOException {
-
-        Request request = new Request.Builder()
-                .url(Constants.Urls.GetPetById.formatted(testPetId))
-                .build();
-
-        return client.newCall(request).execute();
-    }
+//    public Response getPetById(int testPetId) throws IOException {
+//
+//        Request request = new Request.Builder()
+//                .url(Constants.Urls.GetPetById.formatted(testPetId))
+//                .build();
+//
+//        return client.newCall(request).execute();
+//    }
 
     public void createPet(int id, String name, String status) throws IOException {
         Pet pet = new Pet();
