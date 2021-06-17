@@ -7,23 +7,56 @@ import java.util.List;
 
 public class Pet {
 
-    public Integer id;
+    private Integer id;
 
-    public String name;
+    private String name;
 
-    public List<String> photoUrls = null;
+    private List<String> photoUrls = null;
 
-    public List<Tag> tags = null;
+    private List<Tag> tags = null;
 
-    public String status;
+    private String status;
 
-    public  Pet(int id, String name, String status) {
-        this.id = id;
-        this.name = name;
-        this.status = status;
+//    public  Pet(int id, String name, String status) {
+//        this.id = id;
+//        this.name = name;
+//        this.status = status;
+//    }
+//
+//    public Pet(){}
+
+    public static class Builder {
+
+        private Pet mPet = new Pet();
+        public Builder setId(int id) {
+            this.mPet.id = id;
+            return this;
+        }
+
+        public Builder setName(String name) {
+            this.mPet.name = name;
+            return this;
+        }
+
+        public Builder setPhotoUrls(List<String> photoUrls) {
+            this.mPet.photoUrls = photoUrls;
+            return this;
+        }
+
+        public Builder setTags(List<Tag> tags) {
+            this.mPet.tags = tags;
+            return this;
+        }
+
+        public Builder setStatus(String status) {
+            this.mPet.status = status;
+            return this;
+        }
+
+        public Pet build() {
+            return mPet;
+        }
     }
-
-    public Pet(){}
 
     public static Pet fromJsonString(String responseBody) {
         Gson gson = new Gson();

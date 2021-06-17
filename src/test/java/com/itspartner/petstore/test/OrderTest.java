@@ -11,13 +11,15 @@ import java.io.IOException;
 import static com.itspartner.petstore.test.Constants.Headers.CONTENT_TYPE_JSON;
 import static com.itspartner.petstore.test.Constants.ResponseCodes.SUCCESS;
 
+import static com.itspartner.petstore.test.Constants.Urls.PET_URL;
+import static com.itspartner.petstore.test.Constants.Urls;
 import static org.testng.Assert.*;
 
-public class OrderTest {
+public class OrderTest extends PetStoreTest {
 
     String url = "https://petstore.swagger.io/v2/store/order";
     Gson gson = new Gson();
-    OkHttpClient client = new OkHttpClient();
+   // OkHttpClient client = new OkHttpClient();
 
     @Test
     public void inventoryCheck() throws IOException {
@@ -49,6 +51,7 @@ public class OrderTest {
                 .build();
 
         Response response = client.newCall(request).execute();
+        System.out.println(response.body().string());
         Assert.assertEquals(response.code(), SUCCESS);
     }
 
@@ -62,9 +65,14 @@ public class OrderTest {
     }
 
     @Test
-    public void deleteTheOrder() {
+    public void deleteTheOrder() throws IOException {
+        createOrder(5555,1,3,"2021-06-14T07:46:14.469Z", "placed", true);
+        Request request = new Request.Builder()
+                .url(PET_URL + "5555")
+                .delete()
+                .build();
 
-
+        Response response2 = client.newCall(request).execute();
+        Assert.assertEquals(response2.code(), SUCCESS);
     }
-
 }

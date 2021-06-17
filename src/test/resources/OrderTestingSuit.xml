@@ -1,18 +1,15 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="SwaggerPetStore" parallel="none">
+<suite name="OrderTestSuit" parallel="none">
     <parameter name="env" value="qa" />
-    <test name="Java">
+    <test name="OrderTest">
         <parameter name="platformName" value="Java" />
         <groups>
             <run>
-<!--                <include name="Smoke"/>-->
+                <!--                <include name="Smoke"/>-->
             </run>
         </groups>
         <classes>
-            <class name="com.itspartner.petstore.test.PetTest"/>
             <class name="com.itspartner.petstore.test.OrderTest"/>
-            <class name="com.itspartner.petstore.test.UserTest"/>
         </classes>
     </test>
 </suite>
-

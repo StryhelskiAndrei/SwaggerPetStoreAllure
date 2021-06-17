@@ -45,16 +45,5 @@ public class Order {
         public Order build() {
             return mOrder;
         }
-
     }
-
-//    public Order(int id, int petId, int quantity, String shipDate, String status, boolean complete) {
-//
-//        this.id = id;
-//        this.petId = petId;
-//        this.quantity = quantity;
-//        this.shipDate = shipDate;
-//        this.status = status;
-//        this.complete = complete;
-//    }
 }
