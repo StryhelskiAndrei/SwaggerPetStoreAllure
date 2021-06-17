@@ -1,0 +1,8 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Master Suite" parallel="none">
+   <suite-files>
+       <suite-file path="UserTestingSuite.xml"></suite-file>
+       <suite-file path="OrderTestingSuite.xml"></suite-file>
+       <suite-file path="PetTestingSuite.xml"></suite-file>
+   </suite-files>
+</suite>
