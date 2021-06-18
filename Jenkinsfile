@@ -28,6 +28,7 @@ pipeline {
 
                        // sh './gradlew clean test --no-daemon' //run a gradle task
                         //sh $TEST
+                        'rm -rf ./allure-results'
                         sh '$TEST' //run a gradle task
                 }
             }
