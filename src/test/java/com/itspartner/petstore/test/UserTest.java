@@ -9,14 +9,13 @@ import org.testng.annotations.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 import static com.itspartner.petstore.test.Constants.Headers.CONTENT_TYPE_JSON;
-import static com.itspartner.petstore.test.Constants.Urls.USER_URL;
-import static org.testng.Assert.*;
 import static com.itspartner.petstore.test.Constants.ResponseCodes.SUCCESS;
+import static com.itspartner.petstore.test.Constants.Urls.USER_URL;
 
 public class UserTest extends PetStoreTest {
+
 
     @Test
     public void createUserWithList() throws IOException {
@@ -97,6 +96,39 @@ public class UserTest extends PetStoreTest {
     }
 
     @Test
+    public void loginWithoutPassword() throws IOException {
+        String login = "TestUser";
+        String loginUrl = "https://petstore.swagger.io/v2/user/login?username=" + login;
+        Request request = new Request.Builder()
+                .url(loginUrl)
+                .build();
+        Response response = client.newCall(request).execute();
+        Assert.assertEquals(response.code(), 400);
+    }
+
+    @Test
+    public void loginWithoutUsername() throws IOException {
+        String password = "pass123";
+        String loginUrl = "https://petstore.swagger.io/v2/user/login?&password=" + password;
+        Request request = new Request.Builder()
+                .url(loginUrl)
+                .build();
+        Response response = client.newCall(request).execute();
+        Assert.assertEquals(response.code(), 400);
+    }
+
+    @Test
+    public void loginWithoutCredentials() throws IOException {
+        String loginUrl = "https://petstore.swagger.io/v2/user/login?";
+        Request request = new Request.Builder()
+                .url(loginUrl)
+                .build();
+        Response response = client.newCall(request).execute();
+        Assert.assertEquals(response.code(), 400);
+    }
+
+
+    @Test
     public void logout() throws IOException {
         Request request = new Request.Builder()
                 .url(USER_URL + "logout")
@@ -139,5 +171,31 @@ public class UserTest extends PetStoreTest {
                 .build();
         Response response = client.newCall(request).execute();
         Assert.assertEquals(response.code(), SUCCESS);
+    }
+
+    @Test
+    public void createEmptyUser() throws IOException {
+        User user = new User.Builder()
+                .build();
+        String jsnObj = gson.toJson(user);
+        RequestBody body = RequestBody.create(CONTENT_TYPE_JSON, jsnObj);
+        Request request = new Request.Builder()
+                .url(USER_URL)
+                .post(body)
+                .build();
+        Response response = client.newCall(request).execute();
+        Assert.assertEquals(response.code(), SUCCESS);
+    }
+
+    @Test
+    public void createNullUser() throws IOException {
+        String jsnObj = gson.toJson(null);
+        RequestBody body = RequestBody.create(CONTENT_TYPE_JSON, jsnObj);
+        Request request = new Request.Builder()
+                .url(USER_URL)
+                .post(body)
+                .build();
+        Response response = client.newCall(request).execute();
+        Assert.assertEquals(response.code(), 405);
     }
 }

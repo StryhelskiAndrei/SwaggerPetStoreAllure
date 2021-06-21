@@ -1,7 +1,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="PetTestSuit" parallel="none">
     <parameter name="env" value="qa" />
-    <test name="Java">
+    <test name="PetTest">
         <parameter name="platformName" value="Java" />
         <groups>
             <run>

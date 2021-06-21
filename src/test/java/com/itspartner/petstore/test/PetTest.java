@@ -1,11 +1,9 @@
 package com.itspartner.petstore.test;
 
-import com.google.gson.Gson;
 import com.itspartner.petstore.Pet;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-import okhttp3.ResponseBody;
 import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.annotations.BeforeClass;
@@ -15,15 +13,16 @@ import java.io.IOException;
 
 import static com.itspartner.petstore.test.Constants.Headers.CONTENT_TYPE_JSON;
 import static com.itspartner.petstore.test.Constants.ResponseCodes.SUCCESS;
+import static com.itspartner.petstore.test.Constants.ResponseCodes.FAILURE;
 import static com.itspartner.petstore.test.Constants.Urls.PET_URL;
 
 public class PetTest extends PetStoreTest {
 
-    @BeforeClass
-    public void beforeClass(ITestContext context) {
-        String value = context.getCurrentXmlTest().getParameter("env");
-        System.err.println("webdriver.deviceName.iPhone = " + value);
-    }
+//    @BeforeClass
+//    public void beforeClass(ITestContext context) {
+//        String value = context.getCurrentXmlTest().getParameter("env");
+//        System.err.println("webdriver.deviceName.iPhone = " + value);
+//    }
 
     @Test(groups = {"Smoke"})
     public void postAddPet() throws IOException {
@@ -53,20 +52,6 @@ public class PetTest extends PetStoreTest {
                 .build();
         Response response = client.newCall(request).execute();
         Assert.assertEquals(response.code(), SUCCESS);
-
-//        Pet pet = new Pet(2, "Kitty", "available");
-//        String jsnObj = gson.toJson(pet);
-//        RequestBody body = RequestBody.create(CONTENT_TYPE_JSON, jsnObj);
-//        Request request = new Request.Builder()
-//                .url(PET_URL)
-//                .put(body)
-//                .build();
-//
-//        Response response = client.newCall(request).execute();
-//        Pet pet2 = new Pet();
-//        pet2 = gson.fromJson(response.body().string(), Pet.class);
-//        Assert.assertEquals(pet2.name, "Kitty");
-//        Assert.assertEquals(response.code(), SUCCESS);
     }
 
     @Test
@@ -94,6 +79,15 @@ public class PetTest extends PetStoreTest {
         Response response = client.newCall(request).execute();
         Assert.assertEquals(response.code(), SUCCESS);
     }
+
+    @Test
+    public void getPetByNull() throws IOException {
+        Request request = new Request.Builder()
+                .url(PET_URL + null)
+                .build();
+        Response response = client.newCall(request).execute();
+        Assert.assertEquals(response.code(), FAILURE);
+    }
 //    @Test
 //    public void getID() throws IOException {
 //        final int testPetId = 55555;
@@ -112,7 +106,6 @@ public class PetTest extends PetStoreTest {
 
     @Test
     public void updatePetIdPost() throws IOException {
-
         final int petIdForUpdating = 9988;
         Pet pet = new Pet.Builder()
                 .setId(petIdForUpdating)
@@ -136,8 +129,23 @@ public class PetTest extends PetStoreTest {
     }
 
     @Test
-    public void deletePetById() throws IOException {
+    public void updatePetWithoutId() throws IOException {
+        Pet updatedPetWithoutId = new Pet.Builder()
+                .setName("Kitty")
+                .setStatus("available")
+                .build();
+        String jsnObj = gson.toJson(updatedPetWithoutId);
+        RequestBody body = RequestBody.create(CONTENT_TYPE_JSON, jsnObj);
+        Request request = new Request.Builder()
+                .url(PET_URL)
+                .post(body)
+                .build();
+        Response response = client.newCall(request).execute();
+        Assert.assertEquals(response.code(), SUCCESS);
+    }
 
+    @Test
+    public void deletePetById() throws IOException {
         final int petId = 6666;
         Pet pet = new Pet.Builder()
                 .setId(petId)
@@ -151,5 +159,15 @@ public class PetTest extends PetStoreTest {
                 .build();
         Response response = client.newCall(request).execute();
         Assert.assertEquals(response.code(), SUCCESS);
+    }
+
+    @Test
+    public void deletePetByNull() throws IOException {
+        Request request = new Request.Builder()
+                .url(PET_URL + null)
+                .delete()
+                .build();
+        Response response = client.newCall(request).execute();
+        Assert.assertEquals(response.code(), FAILURE);
     }
 }

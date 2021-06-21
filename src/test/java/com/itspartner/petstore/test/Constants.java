@@ -24,6 +24,7 @@ public class Constants {
          * Provide pet id as integer value
          */
         public static final int SUCCESS = 200;
+         public static final int FAILURE = 404;
 
     }
 
