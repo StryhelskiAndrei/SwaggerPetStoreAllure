@@ -48,7 +48,7 @@ public class PetStoreTest {
                 .setPetId(petId)
                 .setQuantity(quantity)
                 .setShipDate(shipDate)
-                .setStatus(shipDate)
+                .setStatus(status)
                 .setComplete(complete)
                 .build();
         String jsnObj = gson.toJson(order);
@@ -57,8 +57,11 @@ public class PetStoreTest {
                 .url(ORDER_URL)
                 .post(body)
                 .build();
+        Response response = client.newCall(request).execute();
+        System.out.println(response.body().string());
+        return response;
 
-        return client.newCall(request).execute();
+        //return client.newCall(request).execute();
     }
 
     public Response createUser(int id, String username, String firstName, String lastName, String email, String password, String phone, int userStatus) throws IOException {

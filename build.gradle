@@ -20,16 +20,16 @@ dependencies {
 
 }
 
-def suite1 = project.hasProperty("suite1")
-def suite2 = project.hasProperty("suite2")
-def suite3 = project.hasProperty("suite3")
+def suite1 = project.hasProperty("petSuite")
+def suite2 = project.hasProperty("orderSuite")
+def suite3 = project.hasProperty("userSuite")
 def masterSuite = project.hasProperty("masterSuite")
 
 test {
     useTestNG(){
-        if (project.hasProperty('suite1')) { suites './src/test/resources/PetTestingSuite.xml' }
-        if (project.hasProperty('suite2')) { suites './src/test/resources/OrderTestingSuite.xml' }
-        if (project.hasProperty('suite3')) { suites './src/test/resources/UserTestingSuite.xml' }
+        if (project.hasProperty('petSuite')) { suites './src/test/resources/PetTestingSuite.xml' }
+        if (project.hasProperty('orderSuite')) { suites './src/test/resources/OrderTestingSuite.xml' }
+        if (project.hasProperty('userSuite')) { suites './src/test/resources/UserTestingSuite.xml' }
         if (project.hasProperty('masterSuite')) { suites './src/test/resources/MasterSuite.xml' }
     }
     ignoreFailures = true
