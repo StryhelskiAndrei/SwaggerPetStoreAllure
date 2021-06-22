@@ -3,9 +3,11 @@ pipeline {
     agent {
         label 'master' //The id of the slave/agent where the build should be executed, if it doesn't matter use "agent any" instead.
     }
-    parameters {
-        string(name: 'TEST', defaultValue: './gradlew clean test --no-daemon', description: 'What should I say?')
-      }
+//     parameters {
+//         string(name: 'TEST', defaultValue: './gradlew clean test --no-daemon', description: 'This parameter run suits')
+//       }
+
+    parameters { choice(name: 'CHOICES', choices: ['./gradlew test -PmasterSuite', './gradlew test -Psuite1', './gradlew test -Psuite2', './gradlew test -Psuite3'], description: 'Choose the suite') }
 
     triggers {
         cron('H 0-23/1 * * *') //regular builds
@@ -29,7 +31,8 @@ pipeline {
                        // sh './gradlew clean test --no-daemon' //run a gradle task
                         //sh $TEST
                         sh 'rm -rf ./allure-results'
-                        sh '$TEST' //run a gradle task
+                        sh '$CHOICES' //run a gradle task
+//                         sh '$TEST' //run a gradle task
                 }
             }
         }
