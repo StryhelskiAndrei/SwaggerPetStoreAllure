@@ -31,8 +31,8 @@ pipeline {
                        // sh './gradlew clean test --no-daemon' //run a gradle task
                         //sh $TEST
                         sh 'rm -rf ./allure-results'
-                        sh '$CHOICES' //run a gradle task
-//                         sh '$TEST' //run a gradle task
+                        //sh '$CHOICES' //run a gradle task
+                         sh '$TEST' //run a gradle task
                 }
             }
         }
