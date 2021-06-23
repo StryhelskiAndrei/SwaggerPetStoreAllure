@@ -70,7 +70,7 @@ public class UserTest extends PetStoreTest {
         Assert.assertEquals(response.code(), SUCCESS);
     }
 
-    @Test(invocationCount = 5)
+    @Test()
     public void deleteUser() throws IOException {
         final String userName = "testUser";
         createUser(331, userName, "user", "444", "user@user", "123", "911",1);

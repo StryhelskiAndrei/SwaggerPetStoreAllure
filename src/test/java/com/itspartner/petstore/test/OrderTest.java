@@ -70,7 +70,7 @@ public class OrderTest extends PetStoreTest {
         Assert.assertEquals(response.code(), SUCCESS);
     }
 
-    @Test(invocationCount = 5)
+    @Test()
     public void deleteTheOrder() throws IOException {
         final int orderId = 5555;
         createOrder(orderId,1,3,"2021-06-14T07:46:14.469Z", "placed", true);

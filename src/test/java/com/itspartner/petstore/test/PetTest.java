@@ -126,7 +126,7 @@ public class PetTest extends PetStoreTest {
         Assert.assertEquals(response.code(), SUCCESS);
     }
 
-    @Test(invocationCount = 5)
+    @Test()
     public void deletePetById() throws IOException {
         final int petId = 6666;
         Pet pet = new Pet.Builder()
