@@ -3,11 +3,11 @@ pipeline {
     agent {
         label 'master' //The id of the slave/agent where the build should be executed, if it doesn't matter use "agent any" instead.
     }
-//     parameters {
-//         string(name: 'TEST', defaultValue: './gradlew clean test --no-daemon', description: 'This parameter run suits')
-//       }
+    parameters {
+        string(name: 'TEST', defaultValue: './gradlew clean test --no-daemon', description: 'This parameter run suits')
+      }
 
-    parameters { choice(name: 'CHOICES', choices: ['./gradlew test -PmasterSuite', './gradlew test -PpetSuite', './gradlew test -PorderSuite', './gradlew test -PuserSuite'], description: 'Choose the suite') }
+    //parameters { choice(name: 'CHOICES', choices: ['./gradlew test -PmasterSuite', './gradlew test -PpetSuite', './gradlew test -PorderSuite', './gradlew test -PuserSuite'], description: 'Choose the suite') }
 
     triggers {
         cron('H 0-23/1 * * *') //regular builds
