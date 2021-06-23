@@ -11,23 +11,24 @@ import org.testng.annotations.Test;
 import java.io.IOException;
 
 import static com.itspartner.petstore.test.Constants.Headers.CONTENT_TYPE_JSON;
+import static com.itspartner.petstore.test.Constants.ResponseCodes.FAILURE;
 import static com.itspartner.petstore.test.Constants.ResponseCodes.SUCCESS;
+import static com.itspartner.petstore.test.Constants.Urls.INVENTORY_URL;
 import static com.itspartner.petstore.test.Constants.Urls.ORDER_URL;
-import static com.itspartner.petstore.test.Constants.Urls;
 
 public class OrderTest extends PetStoreTest {
 
     @Test
     public void inventoryCheck() throws IOException {
         Request request = new Request.Builder()
-                .url("https://petstore.swagger.io/v2/store/inventory")
+                .url(INVENTORY_URL)
                 .build();
         Response response = client.newCall(request).execute();
         Assert.assertEquals(response.code(), SUCCESS);
     }
 
     @Test
-    public void orderForPet() throws IOException {
+    public void makeAnOrder() throws IOException {
         Order order = new Order.Builder()
                 .setId(5555)
                 .setPetId(1)
@@ -36,17 +37,26 @@ public class OrderTest extends PetStoreTest {
                 .setStatus("placed")
                 .setComplete(true)
                 .build();
-
         String jsnObj = gson.toJson(order);
         RequestBody body = RequestBody.create(CONTENT_TYPE_JSON, jsnObj);
         Request request = new Request.Builder()
                 .url(ORDER_URL)
                 .post(body)
                 .build();
-
         Response response = client.newCall(request).execute();
-        System.out.println(response.body().string());
         Assert.assertEquals(response.code(), SUCCESS);
+    }
+
+    @Test
+    public void makeAnOrderWithNull() throws IOException {
+        String jsnObj = gson.toJson(null);
+        RequestBody body = RequestBody.create(CONTENT_TYPE_JSON, jsnObj);
+        Request request = new Request.Builder()
+                .url(ORDER_URL)
+                .post(body)
+                .build();
+        Response response = client.newCall(request).execute();
+        Assert.assertEquals(response.code(), 400);
     }
 
     @Test
@@ -60,7 +70,7 @@ public class OrderTest extends PetStoreTest {
         Assert.assertEquals(response.code(), SUCCESS);
     }
 
-    @Test
+    @Test(invocationCount = 5)
     public void deleteTheOrder() throws IOException {
         final int orderId = 5555;
         createOrder(orderId,1,3,"2021-06-14T07:46:14.469Z", "placed", true);
@@ -70,5 +80,15 @@ public class OrderTest extends PetStoreTest {
                 .build();
         Response response2 = client.newCall(request).execute();
         Assert.assertEquals(response2.code(), SUCCESS);
+    }
+
+    @Test
+    public void deleteTheOrderWithNull() throws IOException {
+        Request request = new Request.Builder()
+                .url("https://petstore.swagger.io/v2/store/order/" + null)
+                .delete()
+                .build();
+        Response response2 = client.newCall(request).execute();
+        Assert.assertEquals(response2.code(), FAILURE);
     }
 }

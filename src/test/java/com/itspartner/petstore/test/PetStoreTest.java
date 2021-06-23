@@ -29,10 +29,7 @@ public class PetStoreTest {
 //    }
 
     public Response createPet(Pet pet) throws IOException {
-
-
         String jsnObj = gson.toJson(pet);
-
         RequestBody body = RequestBody.create(CONTENT_TYPE_JSON, jsnObj);
         Request request = new Request.Builder()
                 .url("https://petstore.swagger.io/v2/pet/")
@@ -57,11 +54,7 @@ public class PetStoreTest {
                 .url(ORDER_URL)
                 .post(body)
                 .build();
-        Response response = client.newCall(request).execute();
-        System.out.println(response.body().string());
-        return response;
-
-        //return client.newCall(request).execute();
+        return client.newCall(request).execute();
     }
 
     public Response createUser(int id, String username, String firstName, String lastName, String email, String password, String phone, int userStatus) throws IOException {
@@ -85,4 +78,6 @@ public class PetStoreTest {
 
         return client.newCall(request).execute();
     }
+
+    final Pet DEFAULT_PET = new Pet.Builder().setId(323).setStatus("available").setName("Kesha").build();
 }

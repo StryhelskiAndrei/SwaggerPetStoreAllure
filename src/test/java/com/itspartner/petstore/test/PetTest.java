@@ -18,22 +18,18 @@ import static com.itspartner.petstore.test.Constants.Urls.PET_URL;
 
 public class PetTest extends PetStoreTest {
 
-//    @BeforeClass
-//    public void beforeClass(ITestContext context) {
+    @BeforeClass
+    public void beforeClass(ITestContext context) {
 //        String value = context.getCurrentXmlTest().getParameter("env");
 //        System.err.println("webdriver.deviceName.iPhone = " + value);
-//    }
+        System.out.println("Start testing Pet class");
+    }
 
     @Test(groups = {"Smoke"})
     public void postAddPet() throws IOException {
-
-        Pet pet = new Pet.Builder()
-                .setId(555)
-                .setName("Kesha")
-                .setStatus("available")
-                .build();
-        Response response = createPet(pet);
+        Response response = createPet(DEFAULT_PET);
         Assert.assertEquals(response.code(), SUCCESS);
+        System.out.println(response.body().string());
     }
 
 
@@ -74,7 +70,7 @@ public class PetTest extends PetStoreTest {
                 .build();
         createPet(pet);
         Request request = new Request.Builder()
-                .url(PET_URL + String.valueOf(petId))
+                .url(PET_URL + petId)
                 .build();
         Response response = client.newCall(request).execute();
         Assert.assertEquals(response.code(), SUCCESS);
@@ -88,21 +84,7 @@ public class PetTest extends PetStoreTest {
         Response response = client.newCall(request).execute();
         Assert.assertEquals(response.code(), FAILURE);
     }
-//    @Test
-//    public void getID() throws IOException {
-//        final int testPetId = 55555;
-//
-//        Response response = getPetById(testPetId);
-//        ResponseBody responseBody = response.body();
-//        Assert.assertEquals(response.code(), SUCCESS);
-//        Assert.assertNotNull(responseBody);
-//
-//        Pet pet = Pet.fromJsonString(responseBody.string());
-//        System.out.println(pet);
-//        Assert.assertNotNull(pet);
-//        Assert.assertNotNull(pet.name);
-//        System.out.println(pet.name);
-//    }
+
 
     @Test
     public void updatePetIdPost() throws IOException {
@@ -125,7 +107,7 @@ public class PetTest extends PetStoreTest {
                 .post(body)
                 .build();
         Response response = client.newCall(request).execute();
-        Assert.assertEquals(response.code(), response.code());
+        Assert.assertEquals(response.code(), SUCCESS);
     }
 
     @Test
@@ -144,7 +126,7 @@ public class PetTest extends PetStoreTest {
         Assert.assertEquals(response.code(), SUCCESS);
     }
 
-    @Test
+    @Test(invocationCount = 5)
     public void deletePetById() throws IOException {
         final int petId = 6666;
         Pet pet = new Pet.Builder()
