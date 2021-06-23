@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import static com.itspartner.petstore.test.Constants.Headers.CONTENT_TYPE_JSON;
+import static com.itspartner.petstore.test.Constants.ResponseCodes.FAILURE;
 import static com.itspartner.petstore.test.Constants.ResponseCodes.SUCCESS;
 import static com.itspartner.petstore.test.Constants.Urls.USER_URL;
 
@@ -44,7 +45,16 @@ public class UserTest extends PetStoreTest {
                 .url(USER_URL + "user1")
                 .build();
         Response response = client.newCall(request).execute();
-        Assert.assertEquals(response.code(),SUCCESS);
+        Assert.assertEquals(response.code(), SUCCESS);
+    }
+
+    @Test
+    public void getNonExistentUserByUserName() throws IOException {
+        Request request = new Request.Builder()
+                .url(USER_URL + "1qaz2wsx#EDC4rfv")
+                .build();
+        Response response = client.newCall(request).execute();
+        Assert.assertEquals(response.code(), FAILURE);
     }
 
     @Test
@@ -81,6 +91,16 @@ public class UserTest extends PetStoreTest {
 
         Response response = client.newCall(request).execute();
         Assert.assertEquals(response.code(), SUCCESS);
+    }
+
+    @Test()
+    public void deleteNonExistentUser() throws IOException {
+        Request request = new Request.Builder()
+                .url(USER_URL + null)
+                .delete()
+                .build();
+        Response response = client.newCall(request).execute();
+        Assert.assertEquals(response.code(), FAILURE);
     }
 
     @Test
