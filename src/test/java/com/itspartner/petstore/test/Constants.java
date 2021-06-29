@@ -5,7 +5,7 @@ import okhttp3.MediaType;
 public class Constants {
     public static class Headers {
         public static final MediaType CONTENT_TYPE_JSON
-                = MediaType.get("application/json; charset=utf-8"); 
+                = MediaType.get("application/json; charset=utf-8");
     }
 
     public static class Urls {
@@ -20,12 +20,21 @@ public class Constants {
 
     }
 
-     public static class ResponseCodes {
+    public static class ResponseCodes {
         /**
          * Provide pet id as integer value
          */
         public static final int SUCCESS = 200;
-         public static final int FAILURE = 404;
+        public static final int FAILURE = 404;
+        public static final int ERROR_400 = 400;
+        public static final int ERROR_405 = 405;
 
+    }
+
+    public static class PetStatuses {
+        public static final String AVAILABLE = "available";
+        public static final String PENDING = "pending";
+        public static final String SOLD = "sold";
+        public static final String ALL_STATUSES = "findByStatus?status=available&status=pending&status=sold";
     }
 }

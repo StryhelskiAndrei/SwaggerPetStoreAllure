@@ -1,6 +1,6 @@
 package com.itspartner.petstore;
 
-public class Order {
+public class Order extends PetStore {
 
     private int id;
     private int petId;
@@ -45,5 +45,31 @@ public class Order {
         public Order build() {
             return mOrder;
         }
+    }
+
+    public static Order createPositiveOrder() {
+        Order order = new Order.Builder()
+                .setId(getRandomId())
+                .setPetId(getRandomId())
+                .setQuantity(3)
+                .setComplete(true)
+                .setStatus("available")
+                .setShipDate("2021-06-14T07:46:14.469Z")
+                .build();
+
+        return order;
+    }
+
+    public static Order createPositiveOrder(int id) {
+        Order order = new Order.Builder()
+                .setId(id)
+                .setPetId(getRandomId())
+                .setQuantity(3)
+                .setComplete(true)
+                .setStatus("available")
+                .setShipDate("2021-06-14T07:46:14.469Z")
+                .build();
+
+        return order;
     }
 }

@@ -3,9 +3,11 @@ package com.itspartner.petstore;
 import com.google.gson.Gson;
 import org.testng.xml.dom.Tag;
 
+import java.nio.charset.Charset;
 import java.util.List;
+import java.util.Random;
 
-public class Pet {
+public class Pet extends PetStore{
 
     private Integer id;
 
@@ -17,13 +19,6 @@ public class Pet {
 
     private String status;
 
-//    public  Pet(int id, String name, String status) {
-//        this.id = id;
-//        this.name = name;
-//        this.status = status;
-//    }
-//
-//    public Pet(){}
 
     public static class Builder {
 
@@ -62,6 +57,15 @@ public class Pet {
         Gson gson = new Gson();
         Pet pet = new Pet();
         pet = gson.fromJson(responseBody, Pet.class);
+        return pet;
+    }
+
+    public static Pet createPositivePet() {
+        Pet pet = new Pet.Builder()
+                .setId(getRandomId())
+                .setStatus("available")
+                .setName(getRandomName())
+                .build();
         return pet;
     }
 }

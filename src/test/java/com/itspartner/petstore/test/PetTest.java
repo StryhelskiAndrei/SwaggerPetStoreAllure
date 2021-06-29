@@ -15,31 +15,26 @@ import static com.itspartner.petstore.test.Constants.Headers.CONTENT_TYPE_JSON;
 import static com.itspartner.petstore.test.Constants.ResponseCodes.SUCCESS;
 import static com.itspartner.petstore.test.Constants.ResponseCodes.FAILURE;
 import static com.itspartner.petstore.test.Constants.Urls.PET_URL;
+import static com.itspartner.petstore.test.Constants.PetStatuses;
+
 
 public class PetTest extends PetStoreTest {
 
     @BeforeClass
     public void beforeClass(ITestContext context) {
-//        String value = context.getCurrentXmlTest().getParameter("env");
-//        System.err.println("webdriver.deviceName.iPhone = " + value);
         System.out.println("Start testing Pet class");
     }
 
     @Test(groups = {"Smoke"})
     public void postAddPet() throws IOException {
-        Response response = createPet(DEFAULT_PET);
-        Assert.assertEquals(response.code(), SUCCESS);
-        System.out.println(response.body().string());
+        Pet pet =  Pet.createPositivePet();
+        Response response = createPet(pet);
+        Assert.assertEquals(response.code(), SUCCESS, "Status code isn't expected");
     }
-
 
     @Test
     public void updatingPetPut() throws IOException {
-        Pet pet = new Pet.Builder()
-                .setId(2)
-                .setName("Kitty")
-                .setStatus("available")
-                .build();
+        Pet pet = Pet.createPositivePet();
         String jsnObj = gson.toJson(pet);
         RequestBody body = RequestBody.create(CONTENT_TYPE_JSON, jsnObj);
         Request request = new Request.Builder()
@@ -53,7 +48,7 @@ public class PetTest extends PetStoreTest {
     @Test
     public void findByStatus() throws IOException {
         Request request = new Request.Builder()
-                .url(PET_URL + "findByStatus?status=available&status=pending&status=sold")
+                .url(PET_URL + PetStatuses.ALL_STATUSES)
                 .build();
         Response response = client.newCall(request).execute();
         Assert.assertEquals(response.code(), SUCCESS);
@@ -62,11 +57,11 @@ public class PetTest extends PetStoreTest {
 
     @Test
     public void getPetById() throws IOException {
-        final int petId = 5555;
+        final int petId = Pet.getRandomId();
         Pet pet = new Pet.Builder()
                 .setId(petId)
-                .setName("Chupakabra")
-                .setStatus("available")
+                .setName(Pet.getRandomName())
+                .setStatus(PetStatuses.AVAILABLE)
                 .build();
         createPet(pet);
         Request request = new Request.Builder()
@@ -85,20 +80,19 @@ public class PetTest extends PetStoreTest {
         Assert.assertEquals(response.code(), FAILURE);
     }
 
-
     @Test
     public void updatePetIdPost() throws IOException {
-        final int petIdForUpdating = 9988;
+        final int petIdForUpdating = Pet.getRandomId();
         Pet pet = new Pet.Builder()
                 .setId(petIdForUpdating)
-                .setName("Chupacabra")
-                .setStatus("available")
+                .setName(Pet.getRandomName())
+                .setStatus(PetStatuses.AVAILABLE)
                 .build();
         createPet(pet);
         Pet updatedPet = new Pet.Builder()
                 .setId(petIdForUpdating)
-                .setName("Kitty")
-                .setStatus("available")
+                .setName(Pet.getRandomName())
+                .setStatus(PetStatuses.SOLD)
                 .build();
         String jsnObj = gson.toJson(updatedPet);
         RequestBody body = RequestBody.create(CONTENT_TYPE_JSON, jsnObj);
@@ -113,8 +107,8 @@ public class PetTest extends PetStoreTest {
     @Test
     public void updatePetWithoutId() throws IOException {
         Pet updatedPetWithoutId = new Pet.Builder()
-                .setName("Kitty")
-                .setStatus("available")
+                .setName(Pet.getRandomName())
+                .setStatus(PetStatuses.AVAILABLE)
                 .build();
         String jsnObj = gson.toJson(updatedPetWithoutId);
         RequestBody body = RequestBody.create(CONTENT_TYPE_JSON, jsnObj);
@@ -126,13 +120,13 @@ public class PetTest extends PetStoreTest {
         Assert.assertEquals(response.code(), SUCCESS);
     }
 
-    @Test()
+    @Test(invocationCount = 5)
     public void deletePetById() throws IOException {
-        final int petId = 6666;
+        final int petId = Pet.getRandomId();
         Pet pet = new Pet.Builder()
                 .setId(petId)
-                .setName("Chupacabra")
-                .setStatus("available")
+                .setName(Pet.getRandomName())
+                .setStatus(PetStatuses.AVAILABLE)
                 .build();
         createPet(pet);
         Request request = new Request.Builder()

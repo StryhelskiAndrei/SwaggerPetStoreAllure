@@ -30,7 +30,7 @@ public class PetStoreTest {
 
     public Response createPet(Pet pet) throws IOException {
         String jsnObj = gson.toJson(pet);
-        RequestBody body = RequestBody.create(CONTENT_TYPE_JSON, jsnObj);
+        RequestBody body = RequestBody.create(jsnObj, CONTENT_TYPE_JSON);
         Request request = new Request.Builder()
                 .url("https://petstore.swagger.io/v2/pet/")
                 .post(body)
@@ -39,19 +39,29 @@ public class PetStoreTest {
         return client.newCall(request).execute();
     }
 
-    public Response createOrder(int id, int petId, int quantity, String shipDate, String status, boolean complete) throws IOException {
-        Order order = new Order.Builder()
-                .setId(id)
-                .setPetId(petId)
-                .setQuantity(quantity)
-                .setShipDate(shipDate)
-                .setStatus(status)
-                .setComplete(complete)
-                .build();
+    public Response sendOrder(Order order) throws IOException {
+//        Order order = new Order.Builder()
+//                .setId(id)
+//                .setPetId(petId)
+//                .setQuantity(quantity)
+//                .setShipDate(shipDate)
+//                .setStatus(status)
+//                .setComplete(complete)
+//                .build();
         String jsnObj = gson.toJson(order);
-        RequestBody body = RequestBody.create(CONTENT_TYPE_JSON, jsnObj);
+        RequestBody body = RequestBody.create(jsnObj, CONTENT_TYPE_JSON);
         Request request = new Request.Builder()
                 .url(ORDER_URL)
+                .post(body)
+                .build();
+        return client.newCall(request).execute();
+    }
+
+    public Response sendUser(User user) throws IOException {
+        String jsnObj = gson.toJson(user);
+        RequestBody body = RequestBody.create(jsnObj, CONTENT_TYPE_JSON);
+        Request request = new Request.Builder()
+                .url(USER_URL)
                 .post(body)
                 .build();
         return client.newCall(request).execute();
@@ -70,7 +80,7 @@ public class PetStoreTest {
                 .build();
 
         String jsnObj = gson.toJson(user);
-        RequestBody body = RequestBody.create(CONTENT_TYPE_JSON, jsnObj);
+        RequestBody body = RequestBody.create(jsnObj, CONTENT_TYPE_JSON);
         Request request = new Request.Builder()
                 .url(USER_URL)
                 .post(body)
@@ -78,6 +88,4 @@ public class PetStoreTest {
 
         return client.newCall(request).execute();
     }
-
-    final Pet DEFAULT_PET = new Pet.Builder().setId(323).setStatus("available").setName("Kesha").build();
 }

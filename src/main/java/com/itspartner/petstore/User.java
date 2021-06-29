@@ -1,6 +1,6 @@
 package com.itspartner.petstore;
 
-public class User {
+public class User extends PetStore {
 
     private int id;
     private String username;
@@ -10,6 +10,14 @@ public class User {
     private String password;
     private String phone;
     private int userStatus;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
 
     public static class Builder {
 
@@ -60,4 +68,33 @@ public class User {
         }
     }
 
+    public static User createPositiveUser() {
+        User user = new User.Builder()
+                .setId(getRandomId())
+                .setUsername(getRandomName())
+                .setFirstName(getRandomName())
+                .setLastName(getRandomName())
+                .setPassword(getRandomPassword())
+                .setEmail("test@email.com")
+                .setPhone("234123")
+                .setUserStatus(1)
+                .build();
+
+        return user;
+    }
+
+    public static User createPositiveUser(String username) {
+        User user = new User.Builder()
+                .setId(getRandomId())
+                .setUsername(username)
+                .setFirstName(getRandomName())
+                .setLastName(getRandomName())
+                .setPassword(getRandomPassword())
+                .setEmail("test@email.com")
+                .setPhone("234123")
+                .setUserStatus(1)
+                .build();
+
+        return user;
+    }
 }
