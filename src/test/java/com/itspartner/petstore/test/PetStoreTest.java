@@ -12,27 +12,18 @@ import okhttp3.Response;
 import java.io.IOException;
 
 import static com.itspartner.petstore.test.Constants.Headers.CONTENT_TYPE_JSON;
-import static com.itspartner.petstore.test.Constants.Urls.ORDER_URL;
-import static com.itspartner.petstore.test.Constants.Urls.USER_URL;
+import static com.itspartner.petstore.test.Constants.Urls.*;
 
 public class PetStoreTest {
 
     OkHttpClient client = new OkHttpClient();
     Gson gson = new Gson();
-//    public Response getPetById(int testPetId) throws IOException {
-//
-//        Request request = new Request.Builder()
-//                .url(Constants.Urls.GetPetById.formatted(testPetId))
-//                .build();
-//
-//        return client.newCall(request).execute();
-//    }
 
     public Response createPet(Pet pet) throws IOException {
         String jsnObj = gson.toJson(pet);
         RequestBody body = RequestBody.create(jsnObj, CONTENT_TYPE_JSON);
         Request request = new Request.Builder()
-                .url("https://petstore.swagger.io/v2/pet/")
+                .url(PET_URL)
                 .post(body)
                 .build();
 
@@ -40,14 +31,6 @@ public class PetStoreTest {
     }
 
     public Response sendOrder(Order order) throws IOException {
-//        Order order = new Order.Builder()
-//                .setId(id)
-//                .setPetId(petId)
-//                .setQuantity(quantity)
-//                .setShipDate(shipDate)
-//                .setStatus(status)
-//                .setComplete(complete)
-//                .build();
         String jsnObj = gson.toJson(order);
         RequestBody body = RequestBody.create(jsnObj, CONTENT_TYPE_JSON);
         Request request = new Request.Builder()
@@ -64,28 +47,6 @@ public class PetStoreTest {
                 .url(USER_URL)
                 .post(body)
                 .build();
-        return client.newCall(request).execute();
-    }
-
-    public Response createUser(int id, String username, String firstName, String lastName, String email, String password, String phone, int userStatus) throws IOException {
-        User user = new User.Builder()
-                .setId(id)
-                .setUsername(username)
-                .setFirstName(firstName)
-                .setLastName(lastName)
-                .setEmail(email)
-                .setPassword(password)
-                .setPhone(phone)
-                .setUserStatus(userStatus)
-                .build();
-
-        String jsnObj = gson.toJson(user);
-        RequestBody body = RequestBody.create(jsnObj, CONTENT_TYPE_JSON);
-        Request request = new Request.Builder()
-                .url(USER_URL)
-                .post(body)
-                .build();
-
         return client.newCall(request).execute();
     }
 }

@@ -1,6 +1,5 @@
 package com.itspartner.petstore.test;
 
-import com.google.gson.Gson;
 import com.itspartner.petstore.Order;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -36,7 +35,6 @@ public class OrderTest extends PetStoreTest {
     @Test
     public void makeAnOrderWithNull() throws IOException {
         String jsnObj = gson.toJson(null);
-        //RequestBody body = RequestBody.create(CONTENT_TYPE_JSON, jsnObj);
         RequestBody body = RequestBody.create(jsnObj, CONTENT_TYPE_JSON);
         Request request = new Request.Builder()
                 .url(ORDER_URL)

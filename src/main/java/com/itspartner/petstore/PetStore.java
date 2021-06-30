@@ -2,7 +2,7 @@ package com.itspartner.petstore;
 
 import java.util.Random;
 
-public class PetStore {
+public abstract class PetStore {
 
     public static int getRandomId() {
         Random random = new Random();

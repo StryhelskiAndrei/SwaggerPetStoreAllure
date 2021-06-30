@@ -9,9 +9,6 @@ public class Constants {
     }
 
     public static class Urls {
-        /**
-         * Provide pet id as integer value
-         */
         public static final String GetPetById = "https://petstore.swagger.io/v2/pet/%d";
         public static final String PET_URL = "https://petstore.swagger.io/v2/pet/";
         public static final String ORDER_URL = "https://petstore.swagger.io/v2/store/order";
@@ -21,9 +18,6 @@ public class Constants {
     }
 
     public static class ResponseCodes {
-        /**
-         * Provide pet id as integer value
-         */
         public static final int SUCCESS = 200;
         public static final int FAILURE = 404;
         public static final int ERROR_400 = 400;

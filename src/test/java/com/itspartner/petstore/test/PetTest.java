@@ -12,10 +12,10 @@ import org.testng.annotations.Test;
 import java.io.IOException;
 
 import static com.itspartner.petstore.test.Constants.Headers.CONTENT_TYPE_JSON;
-import static com.itspartner.petstore.test.Constants.ResponseCodes.SUCCESS;
-import static com.itspartner.petstore.test.Constants.ResponseCodes.FAILURE;
-import static com.itspartner.petstore.test.Constants.Urls.PET_URL;
 import static com.itspartner.petstore.test.Constants.PetStatuses;
+import static com.itspartner.petstore.test.Constants.ResponseCodes.FAILURE;
+import static com.itspartner.petstore.test.Constants.ResponseCodes.SUCCESS;
+import static com.itspartner.petstore.test.Constants.Urls.PET_URL;
 
 
 public class PetTest extends PetStoreTest {
@@ -36,7 +36,7 @@ public class PetTest extends PetStoreTest {
     public void updatingPetPut() throws IOException {
         Pet pet = Pet.createPositivePet();
         String jsnObj = gson.toJson(pet);
-        RequestBody body = RequestBody.create(CONTENT_TYPE_JSON, jsnObj);
+        RequestBody body = RequestBody.create(jsnObj, CONTENT_TYPE_JSON);
         Request request = new Request.Builder()
                 .url(PET_URL)
                 .put(body)
@@ -95,7 +95,7 @@ public class PetTest extends PetStoreTest {
                 .setStatus(PetStatuses.SOLD)
                 .build();
         String jsnObj = gson.toJson(updatedPet);
-        RequestBody body = RequestBody.create(CONTENT_TYPE_JSON, jsnObj);
+        RequestBody body = RequestBody.create(jsnObj, CONTENT_TYPE_JSON);
         Request request = new Request.Builder()
                 .url(PET_URL)
                 .post(body)
@@ -111,7 +111,7 @@ public class PetTest extends PetStoreTest {
                 .setStatus(PetStatuses.AVAILABLE)
                 .build();
         String jsnObj = gson.toJson(updatedPetWithoutId);
-        RequestBody body = RequestBody.create(CONTENT_TYPE_JSON, jsnObj);
+        RequestBody body = RequestBody.create(jsnObj, CONTENT_TYPE_JSON);
         Request request = new Request.Builder()
                 .url(PET_URL)
                 .post(body)

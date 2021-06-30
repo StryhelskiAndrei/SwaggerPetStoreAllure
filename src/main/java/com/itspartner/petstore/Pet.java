@@ -3,9 +3,7 @@ package com.itspartner.petstore;
 import com.google.gson.Gson;
 import org.testng.xml.dom.Tag;
 
-import java.nio.charset.Charset;
 import java.util.List;
-import java.util.Random;
 
 public class Pet extends PetStore{
 
